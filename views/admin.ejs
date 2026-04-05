@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>HireFlow Admin</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background:
+            radial-gradient(circle at top left, rgba(0,122,255,0.08), transparent 30%),
+            radial-gradient(circle at bottom right, rgba(175,82,222,0.08), transparent 30%),
+            #000000;
+        }
+        .glass {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen">
+    <nav class="glass border-b border-white/5 px-6 py-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold tracking-tight">HireFlow <span class="text-[#007aff]">Admin</span></h1>
+            <div class="flex items-center gap-6">
+                <a href="/secure/addInterviewer" class="text-sm font-medium text-zinc-400 hover:text-[#007aff] transition-colors">+ Interviewer</a>
+                <a href="/secure/addCandidate" class="text-sm font-medium text-zinc-400 hover:text-[#007aff] transition-colors">+ Interview Slot</a>
+                <a href="/auth/logout" class="bg-[#ff3b30] px-4 py-2 rounded-lg text-sm font-medium">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto p-6 md:p-12">
+        <div class="flex flex-col gap-12">
+            <!-- Interviewers Section -->
+            <section class="space-y-6">
+                <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-[#007aff] rounded-full"></span>
+                    Interviewers
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <% if (typeof interviewers !== 'undefined' && interviewers.length > 0) { %>
+                        <% interviewers.forEach(person => { %>
+                            <div class="glass rounded-[2rem] p-6 flex flex-col h-full hover:bg-white/[0.04] transition">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center gap-4">
+                                        <img src="<%= person.profileImage %>" class="w-14 h-14 rounded-2xl object-cover border border-white/10">
+                                        <div>
+                                            <p class="font-bold text-lg"><%= person.name %></p>
+                                            <p class="text-xs text-[#007aff] font-medium uppercase tracking-wider"><%= person.department || 'General' %></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-2 text-sm flex-grow text-zinc-400">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-white min-w-[60px]">Email:</span>
+                                        <span class="truncate"><%= person.email %></span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-white min-w-[60px]">Phone:</span>
+                                        <span><%= person.phone || 'N/A' %></span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-white min-w-[60px]">Address:</span>
+                                        <span class="line-clamp-1"><%= person.address || 'N/A' %></span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 pt-4 border-t border-white/5">
+                                    <p class="text-[10px] text-zinc-500 uppercase font-bold mb-2">Skills</p>
+                                    <div class="flex flex-wrap gap-1">
+                                        <% if (person.skills && person.skills.length > 0) { %>
+                                            <% person.skills.forEach(skill => { %>
+                                                <span class="text-[10px] px-2 py-0.5 glass rounded-md text-zinc-300 border border-white/5"><%= skill %></span>
+                                            <% }) %>
+                                        <% } else { %>
+                                            <span class="text-[10px] text-zinc-600 italic">No skills listed</span>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p class="text-zinc-500 text-sm text-center py-10 col-span-full">No interviewers found.</p>
+                    <% } %>
+                </div>
+            </section>
+
+            <!-- Candidates Section -->
+            <section class="space-y-6">
+                <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-[#af52de] rounded-full"></span>
+                    Candidates
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <% if (typeof candidates !== 'undefined' && candidates.length > 0) { %>
+                        <% candidates.forEach(person => { %>
+                            <div class="glass rounded-[2rem] p-6 flex flex-col h-full hover:bg-white/[0.04] transition">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center gap-4">
+                                        <img src="<%= person.profileImage %>" class="w-14 h-14 rounded-full object-cover border border-white/10">
+                                        <div>
+                                            <p class="font-bold text-lg"><%= person.name %></p>
+                                            <p class="text-xs text-[#af52de] font-medium uppercase tracking-wider">Candidate</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2 text-sm flex-grow text-zinc-400">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-white min-w-[60px]">Email:</span>
+                                        <span class="truncate"><%= person.email %></span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-white min-w-[60px]">Phone:</span>
+                                        <span><%= person.phone || 'N/A' %></span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-white min-w-[60px]">Address:</span>
+                                        <span class="line-clamp-1"><%= person.address || 'N/A' %></span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 pt-4 border-t border-white/5">
+                                    <p class="text-[10px] text-zinc-500 uppercase font-bold mb-2">Skills</p>
+                                    <div class="flex flex-wrap gap-1">
+                                        <% if (person.skills && person.skills.length > 0) { %>
+                                            <% person.skills.forEach(skill => { %>
+                                                <span class="text-[10px] px-2 py-0.5 glass rounded-md text-zinc-300 border border-white/5"><%= skill %></span>
+                                            <% }) %>
+                                        <% } else { %>
+                                            <span class="text-[10px] text-zinc-600 italic">No skills listed</span>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p class="text-zinc-500 text-sm text-center py-10 col-span-full">No candidates found.</p>
+                    <% } %>
+                </div>
+            </section>
+
+            <!-- Interview Slots Section -->
+            <section class="space-y-6">
+                <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-[#ff9500] rounded-full"></span>
+                    Scheduled Interview Slots
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <% if (typeof scheduledInterviews !== 'undefined' && scheduledInterviews.length > 0) { %>
+                        <% scheduledInterviews.forEach(slot => { %>
+                            <div class="glass rounded-[2rem] p-6 flex flex-col h-full relative overflow-hidden hover:bg-white/[0.04] transition">
+                                <div class="absolute top-0 right-0 px-3 py-1 bg-[#ff9500] text-black text-[10px] font-bold uppercase rounded-bl-lg">
+                                    <%= slot.status %>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-xs text-zinc-500 uppercase font-bold tracking-widest mb-1">Position</p>
+                                    <h3 class="text-xl font-bold text-white"><%= slot.position %></h3>
+                                    <p class="text-sm text-[#007aff] font-medium"><%= slot.experience %> Experience</p>
+                                </div>
+
+                                <div class="space-y-4 flex-grow">
+                                    <!-- Candidate Info -->
+                                    <div class="flex items-center gap-3 p-2 bg-white/5 rounded-2xl border border-white/5">
+                                        <img src="<%= slot.candidate?.profileImage || '/images/default.png' %>" class="w-10 h-10 rounded-full object-cover border border-white/10">
+                                        <div class="overflow-hidden">
+                                            <p class="text-[10px] text-zinc-500 uppercase font-bold">Candidate</p>
+                                            <p class="text-sm font-semibold truncate"><%= slot.candidate?.name || 'Unknown' %></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Interviewer Info -->
+                                    <div class="flex items-center gap-3 p-2 bg-white/5 rounded-2xl border border-white/5">
+                                        <img src="<%= slot.interviewer?.profileImage || '/images/default.png' %>" class="w-10 h-10 rounded-full object-cover border border-white/10">
+                                        <div class="overflow-hidden">
+                                            <p class="text-[10px] text-zinc-500 uppercase font-bold">Interviewer</p>
+                                            <p class="text-sm font-semibold truncate"><%= slot.interviewer?.name || 'Unassigned' %></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 pt-4 border-t border-white/5 flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <p class="text-[10px] text-zinc-500 uppercase font-bold">Date & Time</p>
+                                        <p class="text-sm font-medium text-white">
+                                            <%= new Date(slot.interviewDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %>
+                                        </p>
+                                    </div>
+                                    <div class="bg-white/10 p-2 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p class="text-zinc-500 text-sm text-center py-10 col-span-full">No scheduled interviews found.</p>
+                    <% } %>
+                </div>
+            </section>
+        </div>
+
+        <div class="mt-10 p-8 bg-gradient-to-br from-[#007aff] to-[#5856d6] rounded-[2.5rem] text-center shadow-2xl">
+            <h3 class="text-xl font-bold">System Status: Active</h3>
+        </div>
+        
+    </main>
+</body>
+</html>

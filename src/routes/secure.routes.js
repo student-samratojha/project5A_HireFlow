@@ -1,0 +1,83 @@
+const router = require("express").Router();
+const { verifyToken, allowAccess } = require("../middleware/auth.middleware");
+const secureController = require("../controllers/secure.controller");
+router.get(
+  "/admin",
+  verifyToken,
+  allowAccess("admin"),
+  secureController.getAdmin,
+);
+router.get(
+  "/candidate",
+  verifyToken,
+  allowAccess("candidate"),
+  secureController.getCandidate,
+);
+router.get(
+  "/interviewer",
+  verifyToken,
+  allowAccess("interviewer"),
+  secureController.getInterviewer,
+);
+router.get(
+  "/addInterviewer",
+  verifyToken,
+  allowAccess("admin"),
+  secureController.getAddInterViewer,
+);
+router.post(
+  "/addInterviewer",
+  verifyToken,
+  allowAccess("admin"),
+  secureController.addInterViewer,
+);
+router.get(
+  "/addCandidate",
+  verifyToken,
+  allowAccess("admin"),
+  secureController.getAddCandidate,
+);
+router.post(
+  "/addCandidate",
+  verifyToken,
+  allowAccess("admin"),
+  secureController.addCandidate,
+);
+router.post(
+  "/deleteCandidate",
+  verifyToken,
+  allowAccess("admin"),
+  secureController.deleteCandidate,
+);
+router.post(
+  "/deleteInterviewer",
+  verifyToken,
+  allowAccess("admin"),
+  secureController.deleteInterviewer,
+);
+router.post(
+  "/restoreCandidate",
+  verifyToken,
+  allowAccess("admin"),
+  secureController.restoreCandidate,
+);
+router.post(
+  "/restoreInterviewer",
+  verifyToken,
+  allowAccess("admin"),
+  secureController.restoreInterviewer,
+);
+router.get(
+  "/interviewRoom/:id",
+  verifyToken,
+  allowAccess("interviewer"),
+  secureController.getInterviewRoom,
+);
+router.post(
+  "/updateStatusByInterviewer",
+  verifyToken,
+  allowAccess("interviewer"),
+  secureController.updateStatusByInterviewer,
+);
+
+module.exports = router;

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Register - Interview Portal</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    </style>
+</head>
+<body class="bg-[#000000] text-[#f5f5f7] min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-[#1c1c1e]/60 backdrop-blur-2xl border border-[#ffffff15] rounded-[2.5rem] p-10 shadow-2xl overflow-hidden">
+        <h2 class="text-3xl font-bold mb-8 text-center tracking-tight">Create Account</h2>
+
+        <form action="/auth/register" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+            <div class="space-y-1">
+                <label class="block text-xs font-semibold text-[#a1a1a6] uppercase mb-1 ml-1">Full Name</label>
+                <input type="text" name="name" required 
+                    class="w-full bg-[#2c2c2e] border border-transparent focus:border-[#0a84ff] focus:ring-4 focus:ring-[#0a84ff]/20 outline-none rounded-xl px-4 py-3 text-white transition-all">
+            </div>
+
+            <div class="space-y-1">
+                <label class="block text-xs font-semibold text-[#a1a1a6] uppercase mb-1 ml-1">Email Address</label>
+                <input type="email" name="email" required 
+                    class="w-full bg-[#2c2c2e] border border-transparent focus:border-[#0a84ff] focus:ring-4 focus:ring-[#0a84ff]/20 outline-none rounded-xl px-4 py-3 text-white transition-all">
+            </div>
+
+            <div class="space-y-1">
+                <label class="block text-xs font-semibold text-[#a1a1a6] uppercase mb-1 ml-1">Password</label>
+                <input type="password" name="password" required 
+                    class="w-full bg-[#2c2c2e] border border-transparent focus:border-[#0a84ff] focus:ring-4 focus:ring-[#0a84ff]/20 outline-none rounded-xl px-4 py-3 text-white transition-all">
+            </div>
+
+            <div class="space-y-1">
+                <label class="block text-xs font-semibold text-[#a1a1a6] uppercase mb-1 ml-1">Phone Number</label>
+                <input type="text" name="phone" 
+                    class="w-full bg-[#2c2c2e] border border-transparent focus:border-[#0a84ff] focus:ring-4 focus:ring-[#0a84ff]/20 outline-none rounded-xl px-4 py-3 text-white transition-all">
+            </div>
+
+            <div class="space-y-1">
+                <label class="block text-xs font-semibold text-[#a1a1a6] uppercase mb-1 ml-1">Profile Image</label>
+                <input type="text" name="profilePic" 
+                    class="w-full bg-[#2c2c2e] border border-transparent focus:border-[#0a84ff] focus:ring-4 focus:ring-[#0a84ff]/20 outline-none rounded-xl px-4 py-3 text-white transition-all">
+            </div>
+
+            <div class="space-y-1">
+                <label class="block text-xs font-semibold text-[#a1a1a6] uppercase mb-1 ml-1">Department</label>
+                <select name="department" class="w-full bg-[#2c2c2e] border border-transparent focus:border-[#0a84ff] focus:ring-4 focus:ring-[#0a84ff]/20 outline-none rounded-xl px-4 py-3 text-white transition-all appearance-none">
+                    <option value="" disabled selected>Select Department</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Management">Management</option>
+                    <option value="Product">Product</option>
+                    <option value="Design">Design</option>
+                </select>
+            </div>
+
+            <div class="md:col-span-2 space-y-1">
+                <label class="block text-xs font-semibold text-[#a1a1a6] uppercase mb-1 ml-1">Skills (Comma separated)</label>
+                <input type="text" name="skills" placeholder="Java, Python, Node.js" 
+                    class="w-full bg-[#2c2c2e] border border-transparent focus:border-[#0a84ff] focus:ring-4 focus:ring-[#0a84ff]/20 outline-none rounded-xl px-4 py-3 text-white transition-all">
+            </div>
+
+            <div class="md:col-span-2 space-y-1">
+                <label class="block text-xs font-semibold text-[#a1a1a6] uppercase mb-1 ml-1">Address</label>
+                <textarea name="address" rows="2" 
+                    class="w-full bg-[#2c2c2e] border border-transparent focus:border-[#0a84ff] focus:ring-4 focus:ring-[#0a84ff]/20 outline-none rounded-xl px-4 py-3 text-white transition-all resize-none"></textarea>
+            </div>
+
+            <button type="submit" 
+                class="md:col-span-2 w-full bg-[#0a84ff] hover:bg-[#0070e0] text-white py-4 rounded-2xl font-bold transition-all shadow-lg shadow-[#0a84ff]/20 mt-2">
+                Sign Up
+            </button>
+        </form>
+
+        <p class="mt-6 text-center text-sm text-[#a1a1a6]">
+            Already have an account? <a href="/auth/login" class="text-[#007aff] hover:underline">Login</a> | <a href="/"class='text-[#007aff] hover:underline'>Home</a>
+        </p>
+    </div>
+</body>
+</html>
